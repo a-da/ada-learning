@@ -1,0 +1,8 @@
+-r prod.txt
+
+pylint
+mypy
+coverage
+pytest
+
+google-api-python-client-stubs==1.17.0

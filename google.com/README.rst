@@ -1,1 +1,33 @@
+Scopes
+------
+
+1. Get 'last date checked in' columns and check if there are fields that need to be checked again.
+   It is necessary to keep some services logged up to date,
+    e.g. if gmail account is not used for 2 years it will be deleted which we don't want to happen.
+
+Example of spread spreadsheet_id
+
+    ------------------------------------------------------------------------
+    | Name      | User | Email        | Last time logged In                |
+    | gmail.com | A1   | a1@gmail.com | 2022.12.28                         |
+    |           |       |             | notify if when: more than 180 days |
+    ------------------------------------------------------------------------
+
+Solution
+--------
+
+Get google api and check the dates in the field,
+if there are some almost expired dates
+send and email with detail what need to be done.
+
+Details
+-------
+
+Follow excellent video tutorial https://www.youtube.com/watch?v=4ssigWmExak.
+
+Read the documentation here https://developers.google.com/sheets/api/samples/reading.
+
+https://developers.google.com/sheets/api/quickstart/python
+
+python3 -m venv /opt/python.d/ada-automation/SaaS/google.com
 
