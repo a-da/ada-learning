@@ -7,7 +7,7 @@ PYTHON_D ?= /opt/python.d
 VENV_PATH_DEV := $(PYTHON_D)/dev/github.com/ada-learning/google.com
 VENV_PATH := $(PYTHON_D)/github.com/ada-learning/google.com
 
-CMD = ada_google_com google-sheets-check-process-expiration-date
+CMD = ./src/quickstart.py
 SOURCE_PATHS=src
 
 
@@ -23,7 +23,7 @@ setup_prod: $(VENV_PATH)
 $(VENV_PATH):
 	$(PYTHON_3) -m venv $(VENV_PATH)
 	"$(VENV_PATH)/bin/pip" install -U pip wheel
-	"$(VENV_PATH)/bin/pip" install .
+	"$(VENV_PATH)/bin/pip" install -r ./requirements/prod.txt
 
 isort:
 	"$(VENV_PATH_DEV)/bin/isort" $(SOURCE_PATHS) tests
