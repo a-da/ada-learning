@@ -7,7 +7,7 @@ PYTHON_D ?= /opt/python.d
 VENV_PATH_DEV := $(PYTHON_D)/dev/github.com/ada-learning/google.com
 VENV_PATH := $(PYTHON_D)/github.com/ada-learning/google.com
 
-CMD = ./src/quickstart.py
+CMD = ada_google_com google-sheets-check-process-expiration-date
 SOURCE_PATHS=src
 
 
