@@ -1,19 +1,19 @@
-#!/usr/bin/env python3
 """
-See Readme for description
+Google Sheet API
 """
-from typing import List, Sequence
+from typing import Any, Dict, List, Sequence
 
-import json
 import re
 import sys
 from dataclasses import dataclass
 from datetime import datetime, timedelta
-from pathlib import Path
 
-from google.oauth2 import service_account
+from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
+
+SCOPES = (
+    'https://www.googleapis.com/auth/spreadsheets.readonly',
+)
 
 
 @dataclass
@@ -22,26 +22,16 @@ class Source:
     Wrapper for configuration
     """
     spreadsheet_id: str
-    sheets: List[str]
-
-
-def load_credentials() -> service_account.Credentials:
-    """
-    Load credentials from a file
-    """
-    path = Path(__file__).parent / 'conf.d/service_account_file.json'
-
-    return service_account.Credentials.from_service_account_file(
-        filename=path,
-        scopes=['https://www.googleapis.com/auth/spreadsheets.readonly']
-    )
+    sheets: Sequence[str]
 
 
 def process_head_content_and_footer(  # pylint: disable=too-many-locals
         head: Sequence[str],
         content: Sequence[Sequence[str]],
         footer: Sequence[str],
-        sheet_name: str) -> None:
+        sheet_name: str,
+        output: List[str],
+    ) -> None:
     """
     Process data available in head, content, and footer to send notification if needed
     """
@@ -83,7 +73,7 @@ def process_head_content_and_footer(  # pylint: disable=too-many-locals
 
     notify_after_n_days = int(match.group(1))
 
-    print('INFO: will notify after %r days' % notify_after_n_days)  # pylint: disable=consider-using-f-string
+    output.append('INFO: will notify after %r days' % notify_after_n_days)  # pylint: disable=consider-using-f-string
 
     now = datetime.utcnow()
 
@@ -101,59 +91,60 @@ def process_head_content_and_footer(  # pylint: disable=too-many-locals
         date = datetime.strptime(last_date_checked_in, '%Y.%m.%d')
         if (now - date) > timedelta(days=notify_after_n_days):
             need_notification = True
-            print('you have to log into to refresh account, '
-                  'you could loose that account ....',
-                  repr(name), user, email)
+            output.append((
+                'you have to log into to refresh account, '
+                f'you could loose that account .... {repr(name)!r}, {user!r}, {email!r}')
+            )
 
     if not need_notification:
-        print('INFO: all %r accounts are up to date '  # pylint: disable=consider-using-f-string
-              'and do not need a notification' % len(content))
+        output.append(
+            'INFO: all %r accounts are up to date '  # pylint: disable=consider-using-f-string
+            'and do not need a notification' % len(content))
 
 
-def process_source(source: Source) -> None:
+def process_source(credentials: Credentials, source: Source, output: List[str]) -> None:
     """
     Process a concrete spreadsheet sheet
     """
-    credentials = load_credentials()
 
-    try:
-        service = build('sheets', 'v4', credentials=credentials)
+    service = build('sheets', 'v4', credentials=credentials)
 
-        # Call the Sheets API
-        sheet = service.spreadsheets()  # pylint: disable=no-member
-        for sheet_name in source.sheets:
-            print('INFO Fetching Source(%r, %r)' % (  # pylint: disable=consider-using-f-string
-                source.spreadsheet_id, sheet_name
-            ))
-            result = sheet.values().get(
-                spreadsheetId=source.spreadsheet_id,
-                range=sheet_name
-            ).execute()
-
-            head, *content, footer = result.get('values', [])
-            process_head_content_and_footer(
-                head=head,
-                content=content,
-                footer=footer,
-                sheet_name=sheet_name,
-            )
-
-    except HttpError as err:
-        print(err)
-
-
-def process_all_sources() -> None:
-    """
-    Process all spreadsheet sequentially
-    """
-    path = Path(__file__).parent / 'conf.d/sources.json'
-    sources = json.loads(path.read_text())
-    for source in sources:
-        process_source(Source(
-            spreadsheet_id=source['spreadsheet_id'],
-            sheets=source['sheets']
+    # Call the Sheets API
+    sheet = service.spreadsheets()  # pylint: disable=no-member
+    for sheet_name in source.sheets:
+        output.append('INFO Fetching Source(%r, %r)' % (  # pylint: disable=consider-using-f-string
+            source.spreadsheet_id, sheet_name
         ))
+        result = sheet.values().get(
+            spreadsheetId=source.spreadsheet_id,
+            range=sheet_name
+        ).execute()
+
+        head, *content, footer = result.get('values', [])
+        process_head_content_and_footer(
+            head=head,
+            content=content,
+            footer=footer,
+            sheet_name=sheet_name,
+            output=output
+        )
 
 
-if __name__ == '__main__':
-    process_all_sources()
+def check_process_expiration_date(
+        credentials: Credentials,
+        config: Dict[str, Any]) -> Sequence[str]:
+    """
+    Based on configuration process all sheets.
+    """
+    sources = config['spreadsheets']
+    output: List[str] = []
+    for source in sources:
+        process_source(
+            credentials=credentials,
+            source=Source(
+                spreadsheet_id=source['spreadsheet_id'],
+                sheets=source['sheets']
+            ),
+            output=output
+        )
+    return output
