@@ -23,11 +23,24 @@ send and email with detail what need to be done.
 Details
 -------
 
-Follow excellent video tutorial https://www.youtube.com/watch?v=4ssigWmExak.
+excel
+`````
 
-Read the documentation here https://developers.google.com/sheets/api/samples/reading.
+Video
+    Follow excellent video tutorial https://www.youtube.com/watch?v=4ssigWmExak.
+
+Read the documentation here
+    https://developers.google.com/sheets/api/samples/reading.
 
 https://developers.google.com/sheets/api/quickstart/python
 
 python3 -m venv /opt/python.d/ada-automation/SaaS/google.com
+
+gmail
+`````
+
+Api documentation
+    https://developers.google.com/gmail/api/quickstart/python
+Video
+    https://www.youtube.com/watch?v=44ERDGa9Dr4&list=PL3JVwFmb_BnSHlyy3gItOar_Y8w45mbJx
 
