@@ -23,7 +23,7 @@ setup_prod: $(VENV_PATH)
 $(VENV_PATH):
 	$(PYTHON_3) -m venv $(VENV_PATH)
 	"$(VENV_PATH)/bin/pip" install -U pip wheel
-	"$(VENV_PATH)/bin/pip" install -r ./requirements/prod.txt
+	"$(VENV_PATH)/bin/pip" install .
 
 isort:
 	"$(VENV_PATH_DEV)/bin/isort" $(SOURCE_PATHS) tests
