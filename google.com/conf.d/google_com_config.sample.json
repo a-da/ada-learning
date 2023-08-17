@@ -1,0 +1,13 @@
+{
+  "spreadsheets": [
+    {
+      "spreadsheet_id": "1yBd...Re4",
+      "sheets": ["NoCategory", "Online shop list", "Delivery", "Dev web sites", "Social"]
+    }
+  ],
+  "gmail": {
+    "to": "..@gmail.com",
+    "from": "...@gmail.com",
+    "subject": ":Automation: Checking sheets for expirations date"
+  }
+}
