@@ -32,6 +32,6 @@ def test_check_process_expiration_date():
 
         assert out == [
             'INFO: will notify after 180 days',
-            'You have to log into to refresh account, you could loose that account .... '
-            '"\'Name-1\'", \'User-1\', \'Email-1\'',
+            'You have to log into to refresh account, you could lose that account .... '
+            "'Name-1', 'User-1', 'Email-1'",
         ]

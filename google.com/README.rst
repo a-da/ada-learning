@@ -44,3 +44,17 @@ Api documentation
 Video
     https://www.youtube.com/watch?v=44ERDGa9Dr4&list=PL3JVwFmb_BnSHlyy3gItOar_Y8w45mbJx
 
+For Developers
+--------------
+
+To enable checking spelling please follow instructions from https://stackoverflow.com/a/27162411/1251677.
+
+.. code-block::
+
+    $ brew install svn # required by enchant
+    $ brew install enchant
+    $ pip install -e '.[dev]'  # it has pyenchant in dependency
+
+
+
+

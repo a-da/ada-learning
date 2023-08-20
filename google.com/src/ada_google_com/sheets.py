@@ -4,7 +4,6 @@ Google Sheet API
 from typing import Any, Dict, Iterable, List, Optional, Sequence, cast
 
 import re
-import sys
 from datetime import datetime, timedelta
 from enum import Enum
 
@@ -114,8 +113,7 @@ class Foot(BaseModel):
         )
         match = regexp.search(notify_after_n_days_raw_value)
         if not match:
-            print(f'Can not match {regexp.pattern}')
-            sys.exit(1)
+            raise ValueError(f'Can not match {regexp.pattern}')
 
         return int(match.group(1))
 
@@ -126,11 +124,11 @@ class Source(BaseModel):
 
     Example::
 
-        ------------------------------------------------------------------------
-        <Head: see HeadIndex implementation>
-        <Raw Content>
-        <Foot: See Foot Implementation>
-        ------------------------------------------------------------------------
+        --------------------------------------|
+        |<Head: see HeadIndex implementation> |
+        |<Raw Content>                        |
+        |<Foot: See Foot Implementation>      |
+        --------------------------------------|
 
     """
     spreadsheet_id: str
@@ -147,7 +145,7 @@ class Source(BaseModel):
         """
         Factory method to create a Source object, by:
 
-        - fetch sheet info form google api on spreadsheet_id and sheet_name
+        - fetch sheet info form GMail API by spreadsheet_id and sheet_name
         - extract header, content and footer
         """
         service = build('sheets', 'v4', credentials=credentials)
@@ -200,7 +198,7 @@ class Source(BaseModel):
         if (now - date) > timedelta(days=self.foot.notify_after_n_days):
             return (
                 'You have to log into to refresh account, '
-                f'you could loose that account .... {repr(name)!r}, {user!r}, {email!r}'
+                f'you could lose that account .... {name!r}, {user!r}, {email!r}'
             )
 
         return None

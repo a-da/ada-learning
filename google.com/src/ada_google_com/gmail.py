@@ -1,5 +1,5 @@
 """
-Gmail API calls
+GMail API calls
 """
 import base64
 from email.message import EmailMessage
