@@ -6,9 +6,9 @@ from ada_google_com import gmail
 
 def test_process_all_sources():
     """
-    GIVEN gmail api
+    GIVEN GMail API
     WHEN send email
-    THEN send().execute() api will be executed
+    THEN send().execute() API will be executed
     """
     with \
             mock.patch.object(gmail, gmail.build.__name__) as build, \
@@ -24,7 +24,7 @@ def test_process_all_sources():
             content='some-content',
         )
 
-        # check google send api
+        # check GMail send API
         (
             build.return_value
             .users.return_value

@@ -5,7 +5,7 @@ Scopes
    It is necessary to keep some services logged up to date,
     e.g. if gmail account is not used for 2 years it will be deleted which we don't want to happen.
 
-Example of spread spreadsheet_id
+Example of spreadsheet
 
     ------------------------------------------------------------------------
     | Name      | User | Email        | Last time logged In                |
@@ -43,4 +43,18 @@ Api documentation
     https://developers.google.com/gmail/api/quickstart/python
 Video
     https://www.youtube.com/watch?v=44ERDGa9Dr4&list=PL3JVwFmb_BnSHlyy3gItOar_Y8w45mbJx
+
+For Developers
+--------------
+
+To enable checking spelling please follow instructions from https://stackoverflow.com/a/27162411/1251677.
+
+.. code-block::
+
+    $ brew install svn # required by enchant
+    $ brew install enchant
+    $ pip install -e '.[dev]'  # it has pyenchant in dependency
+
+
+
 
