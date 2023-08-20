@@ -5,7 +5,7 @@ Scopes
    It is necessary to keep some services logged up to date,
     e.g. if gmail account is not used for 2 years it will be deleted which we don't want to happen.
 
-Example of spread spreadsheet_id
+Example of spreadsheet
 
     ------------------------------------------------------------------------
     | Name      | User | Email        | Last time logged In                |

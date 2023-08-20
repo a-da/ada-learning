@@ -3,8 +3,7 @@ Internal shared code
 """
 from typing import Any, Dict, Sequence, cast
 
-import json
-
+import yaml
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -43,4 +42,4 @@ def get_config() -> Dict[str, Any]:
     """
     Load configuration see sample `google.com/src/conf.d/google_com_config.sample.json`.
     """
-    return cast(Dict[str, Any], json.loads(env.CONFIG.read_bytes().decode()))
+    return cast(Dict[str, Any], yaml.safe_load(env.CONFIG.read_bytes()))
