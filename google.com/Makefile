@@ -72,7 +72,7 @@ enchant-Darwin:
 
 enchant-Linux:
 	sudo apt update
-	sudo apt install enchant -y
+	sudo apt install python3-enchant -y
 
 enchant: enchant-$(shell uname)
 
