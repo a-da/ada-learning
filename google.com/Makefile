@@ -71,6 +71,7 @@ enchant-Darwin:
 	exit 1
 
 enchant-Linux:
+	sudo apt update
 	sudo apt install enchant -y
 
 enchant: enchant-$(shell uname)
