@@ -63,4 +63,16 @@ activate_env_prod:
 activate_env_dev:
 	@echo "activate \"$(VENV_PATH_DEV)/bin/activate\""
 
+enchant-Darwin:
+	@echo Install it manually
+	@echo '$ brew install svn # required by enchant'
+	@echo '$ brew install enchant'
+	@echo '$ pip install -e '.[dev]'  # it has pyenchant in dependency'
+	exit 1
+
+enchant-Linux:
+	apt install enchant -y
+
+enchant: enchant-$(shell uname)
+
 clean_all: clean_dev clean_prod
