@@ -3,8 +3,9 @@ Google Sheet API
 """
 from typing import Any, Dict, Iterable, List, Optional, Sequence, cast
 
+import datetime
+import logging
 import re
-from datetime import datetime, timedelta
 from enum import Enum
 
 from google.oauth2.credentials import Credentials
@@ -15,6 +16,7 @@ SCOPES = (
     'https://www.googleapis.com/auth/spreadsheets.readonly',
 )
 
+LOG = logging.getLogger(__name__)
 
 class HeadIndex(BaseModel):
     """
@@ -184,7 +186,7 @@ class Source(BaseModel):
             )
 
     def _process_content_single_line(self, row: Sequence[str]) -> Optional[str]:
-        now = datetime.utcnow()
+        now = datetime.datetime.now(datetime.UTC)
 
         last_date_checked_in = row[self.head_index.last_time_logged_in]
         if last_date_checked_in == 'skip':
@@ -194,8 +196,12 @@ class Source(BaseModel):
         user = row[self.head_index.user]
         email = row[self.head_index.email]
 
-        date = datetime.strptime(last_date_checked_in, '%Y.%m.%d')
-        if (now - date) > timedelta(days=self.foot.notify_after_n_days):
+        date = datetime.datetime.strptime(
+            last_date_checked_in, '%Y.%m.%d'
+        ).replace(
+            tzinfo=datetime.timezone.utc
+        )
+        if (now - date) > datetime.timedelta(days=self.foot.notify_after_n_days):
             return (
                 'You have to log into to refresh account, '
                 f'you could lose that account .... {name!r}, {user!r}, {email!r}'
@@ -248,6 +254,9 @@ def check_process_expiration_date(
             sheets=source_config['sheets'],
             credentials=credentials
         ):
-            output += source.process_raw_content()
+            try:
+                output += source.process_raw_content()
+            except IndexError:
+                LOG.error(f"Failed for {source.sheet_name=}", exc_info=True)  # pylint: disable=logging-fstring-interpolation
 
     return output

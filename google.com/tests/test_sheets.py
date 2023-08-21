@@ -14,6 +14,7 @@ def test_check_process_expiration_date():
         'values': [
             ['Name',   'Email',   'User',   'Last time logged In'],
             ['Name-1', 'Email-1', 'User-1', '2000.12.29'],
+            ['Name-2', 'Email-2', 'User-2', 'skip'],
             ['',       '',        '',        'notify if when: more than 180 days'],
         ]
 

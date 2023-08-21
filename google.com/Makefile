@@ -2,7 +2,7 @@
 
 SHELL := /bin/bash -eu -o pipefail
 PYTHON_3 ?= python3
-PYTHON_D ?= /opt/python.d
+PYTHON_D ?= $${HOME}/.python.d
 
 VENV_PATH_DEV := $(PYTHON_D)/dev/github.com/ada-learning/google.com
 VENV_PATH := $(PYTHON_D)/github.com/ada-learning/google.com
@@ -14,14 +14,14 @@ SOURCE_PATHS=src
 setup_dev: $(VENV_PATH_DEV)
 
 $(VENV_PATH_DEV):
-	$(PYTHON_3) -m venv $(VENV_PATH_DEV)
+	"$(PYTHON_3)" -m venv $(VENV_PATH_DEV)
 	"$(VENV_PATH_DEV)/bin/pip" install -U pip wheel
 	"$(VENV_PATH_DEV)/bin/pip" install -e ".[dev]"
 
 setup_prod: $(VENV_PATH)
 
 $(VENV_PATH):
-	$(PYTHON_3) -m venv $(VENV_PATH)
+	"$(PYTHON_3)" -m venv $(VENV_PATH)
 	"$(VENV_PATH)/bin/pip" install -U pip wheel
 	"$(VENV_PATH)/bin/pip" install .
 
@@ -52,16 +52,16 @@ run: setup_prod
 	source "$(VENV_PATH)/bin/activate" && $(CMD)
 
 clean_dev:
-	rm -rfv "$(VENV_PATH_DEV)"
+	rm -rfv "$(VENV_PATH_DEV)" token.json
 
 clean_prod: $(VENV_PATH)
-	rm -rfv "$(VENV_PATH)"
+	rm -rfv "$(VENV_PATH)" token.json
 
 activate_env_prod:
-	@echo "activate \"$(VENV_PATH)/bin/activate\""
+	@echo "source \"$(VENV_PATH)/bin/activate\""
 
 activate_env_dev:
-	@echo "activate \"$(VENV_PATH_DEV)/bin/activate\""
+	@echo "source \"$(VENV_PATH_DEV)/bin/activate\""
 
 enchant-Darwin:
 	@echo Install it manually
@@ -77,3 +77,6 @@ enchant-Linux:
 enchant: enchant-$(shell uname)
 
 clean_all: clean_dev clean_prod
+
+ansible:
+	ansible-playbook ansible.yaml --connection=local -i localhost,

@@ -22,13 +22,29 @@ def get_credentials(scopes: Sequence[Sequence[str]]) -> Credentials:
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
+    print('[DEBUG] enter function get_credentials')
     if env.TOKEN_JSON.exists():
+        print('[DEBUG] env.TOKEN_JSON.exists')
         creds = Credentials.from_authorized_user_file(env.TOKEN_JSON, scopes)
+        print('[DEBUG]  Credentials.from_authorized_user_file creds.expired',
+              creds.expired)
+        print('[DEBUG]  Credentials.from_authorized_user_file creds.refresh_token',
+              creds.refresh_token)
+
     # If there are no (valid) credentials available, let the user log in.
+
+    print('[DEBUG] not creds', not creds)
+
     if not creds or not creds.valid:
+        print('[DEBUG] not creds or not creds.valid')
+
+        # pylint: disable=line-too-long
+        # if failed see https://stackoverflow.com/questions/27771324/google-api-getting-credentials-from-refresh-token-with-oauth2client-client
+        # pylint: enable=line-too-long
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
+
             flow = InstalledAppFlow.from_client_secrets_file(env.CLIENT_SECRETS_FILE, scopes)
             creds = flow.run_local_server(port=0)
 
