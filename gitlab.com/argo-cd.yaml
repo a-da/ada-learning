@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitlab
+spec:
+  destination:
+    name: ''
+    namespace: 'gitlab'
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: ''
+    repoURL: 'https://charts.gitlab.io/'
+    targetRevision: 7.7.0
+    chart: gitlab
+    helm:
+      parameters:
+        - name: global.hosts.externalIP
+          value: 10.10.10.10
+        - name: global.hosts.domain
+          value: example.com
+        - name: certmanager-issuer.email
+          value: me@example.com
+
+  sources: []
+  project: default
+
+
+#   --set global.hosts.domain=example.com \
+#  --set global.hosts.externalIP=10.10.10.10 \
+#  --set certmanager-issuer.email=me@example.com \
+#  --set postgresql.image.tag=13.6.0

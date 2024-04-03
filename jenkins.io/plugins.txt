@@ -1,0 +1,3 @@
+Stage View - see pipeline as table
+Blue Ocean - see pipeline as a graph
+Warnings - Mypy checking logs

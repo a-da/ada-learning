@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: harbor
+spec:
+  destination:
+    name: ''
+    namespace: ''
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: ''
+    repoURL: 'https://helm.goharbor.io'
+    targetRevision: 1.12.4 # 1.13.1 # 1.12.4
+    chart: harbor
+  sources: []
+  project: default
