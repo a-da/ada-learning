@@ -10,6 +10,8 @@ Certification Tech Stack. For example, AWS will use at least DynamoDB, SQS, S3 b
 # Structure
 
 The tech stack will be structured by the web domain exposed.
+The repository structure is to be considered as a *mono-repo* without versions and releases;
+therefore, the changelogs will not be enforced in the git commits.
 
 # Communication
 
