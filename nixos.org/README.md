@@ -35,7 +35,7 @@ export NIXPKGS_ALLOW_UNFREE=1
 
 ```
 
-List of packages succcefully installed on MacOS:
+List of packages successfully installed on MacOS:
 
 - meld
 - git
@@ -58,8 +58,9 @@ List of packages succcefully installed on MacOS:
 - procps (pgrep, pkill and pfind for OpenBSD and Darwin (Mac OS X), see https://github.com/NixOS/nixpkgs/issues/141157)
 - vscode
 - awscli2
+- terraform
 
-List of packages that have broken for macOS but may work, for example inn Ubuntu :
+List of packages that have broken for macOS but may work, for example in Ubuntu:
 - firefox
 - chromium
 - thunderbird
