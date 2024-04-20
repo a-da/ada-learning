@@ -66,7 +66,7 @@ Swap:             0B          0B          0B
 
 # 3.3 Check network adapters
 
-Acordind to [05], since we have two networks we will need to add "192.168.10.4" into /etc/hosts.
+Acordind to [04], since we have two networks we will need to add "192.168.10.4" into /etc/hosts.
 
 ```bash
 $ ifconfig -a
