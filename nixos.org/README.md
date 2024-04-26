@@ -58,6 +58,8 @@ List of packages succcefully installed on MacOS:
 - procps (pgrep, pkill and pfind for OpenBSD and Darwin (Mac OS X), see https://github.com/NixOS/nixpkgs/issues/141157)
 - vscode
 - awscli2
+- telegram-desktop
+- vlc
 
 List of packages that have broken for macOS but may work, for example inn Ubuntu :
 - firefox
@@ -68,4 +70,4 @@ List of packages that have broken for macOS but may work, for example inn Ubuntu
 - wine
 - sublime
 - brave
-- telegram-desktop (not tested yet on MacOS)
+- telegram-desktop
