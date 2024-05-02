@@ -60,8 +60,9 @@ List of packages succcefully installed on MacOS:
 - awscli2
 - telegram-desktop
 - vlc
+- pdftk (process pdf in command line)
 
-List of packages that have broken for macOS but may work, for example inn Ubuntu :
+List of packages that have broken for macOS but may work, for example in Ubuntu :
 - firefox
 - chromium
 - thunderbird
@@ -70,4 +71,3 @@ List of packages that have broken for macOS but may work, for example inn Ubuntu
 - wine
 - sublime
 - brave
-- telegram-desktop
