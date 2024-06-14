@@ -61,6 +61,7 @@ List of packages succcefully installed on MacOS:
 - telegram-desktop
 - vlc
 - pdftk (process pdf in command line)
+- rsync
 
 List of packages that have broken for macOS but may work, for example in Ubuntu :
 - firefox
