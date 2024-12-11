@@ -11,12 +11,14 @@ git clone https://github.com/lima-vm/lima.git
 cd lima
 make
 make install
+
+vim $HOME/.bashrc # add to PATH $HOME/github.com/lima-vm/lima/_output/bin
 ```
 
 ## Show VM when lima installed
 
 ```bash
-$ ./_output/bin/limactl list
+$ limactl list
 NAME        STATUS     SSH                VMTYPE    ARCH      CPUS    MEMORY    DISK     DIR
 ada-lima    Running    127.0.0.1:33005    qemu      x86_64    2       8GiB      30GiB    ~/.lima/ada-lima
 ```
@@ -24,7 +26,7 @@ ada-lima    Running    127.0.0.1:33005    qemu      x86_64    2       8GiB      
 ## Stop VM when lima installed
 
 ```bash
-$ ./_output/bin/limactl stop ada-lima
+$ limactl stop ada-lima
 INFO[0000] Sending SIGINT to hostagent process 902698
 INFO[0000] Waiting for the host agent and the driver processes to shut down
 INFO[0000] [hostagent] Received SIGINT, shutting down the host agent
@@ -40,7 +42,7 @@ INFO[0066] [hostagent] QEMU has exited
 ## Delete VM when lima installed
 
 ```bash
-./_output/bin/limactl delete ada-lima
+$ limactl delete ada-lima
 INFO[0000] The qemu driver process seems already stopped
 INFO[0000] The host agent process seems already stopped
 INFO[0000] Removing *.pid *.sock *.tmp under "/home/ubuntu/.lima/ada-lima"
@@ -69,7 +71,7 @@ sudo reboot
 ## Create Lima config
 
 ```bash
-$ ./_output/bin/limactl create --name=ada-lima --arch=x86_64 --cpus=2 --disk=40 --memory=10
+$ limactl create --name=ada-lima --arch=x86_64 --cpus=2 --disk=40 --memory=10 template://docker
 ? Creating an instance "ada-lima" Proceed with the current configuration
 INFO[0001] Attempting to download the image              arch=x86_64 digest="sha256:05bbfe57d7701c685d8c65f4d34cebe947bc89e3509c4d8a2b9c77f39e91f3ca" location="https://cloud-images.ubuntu.com/releases/24.10/release-20241109/ubuntu-24.10-server-cloudimg-amd64.img"
 INFO[0002] Using cache "/home/ubuntu/.cache/lima/download/by-url-sha256/34285004a5a0d8294d0fa023a74e47ad44f780ae0a9a50bd27689a9a93d310fe/data"
@@ -81,7 +83,7 @@ INFO[0002] Run `limactl start ada-lima` to start the instance.
 ## Start Lima
 
 ```bash
-$ ./_output/bin/limactl start ada-lima
+$ limactl start ada-lima
 ? Creating an instance "ada-lima" Proceed with the current configuration
 INFO[0001] Attempting to download the image              arch=x86_64 digest="sha256:05bbfe57d7701c685d8c65f4d34cebe947bc89e3509c4d8a2b9c77f39e91f3ca" location="https://cloud-images.ubuntu.com/releases/24.10/release-20241109/ubuntu-24.10-server-cloudimg-amd64.img"
 INFO[0002] Using cache "/home/ubuntu/.cache/lima/download/by-url-sha256/34285004a5a0d8294d0fa023a74e47ad44f780ae0a9a50bd27689a9a93d310fe/data"
@@ -93,7 +95,7 @@ INFO[0002] Run `limactl start ada-lima` to start the instance.
 ## Shell Lima
 
 ```bash
-$ ./_output/bin/limactl shell ada-lima -- bash -c 'date'
+$ limactl shell ada-lima -- bash -c 'date'
 Wed Dec 11 10:46:32 UTC 2024
 ```
 
