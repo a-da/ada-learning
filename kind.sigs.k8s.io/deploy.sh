@@ -2,14 +2,14 @@
 
 set -eu
 
-KIND_NAME=ada-oraclu-arm
-DOCKER_ENGINE=docker
+KIND_NAME=${1:?ada-oraclu-amd}
+DOCKER_ENGINE=${2:?docker podman nerdctl}
 
 if kind get clusters | grep $KIND_NAME
 then
 	echo '[INFO] cluster already exists'
 else
-	echo '[INFO] createing cluster'
+	echo '[INFO] creating cluster'
 	kind create cluster --name=$KIND_NAME --config=config.yml
 fi
 
