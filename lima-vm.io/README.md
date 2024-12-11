@@ -97,4 +97,11 @@ $ ./_output/bin/limactl shell ada-lima -- bash -c 'date'
 Wed Dec 11 10:46:32 UTC 2024
 ```
 
+## Explicit ssh
+
+```bash
+ssh -F /home/ubuntu/.lima/ada-lima/ssh.config lima-ada-lima
+```
+
+
 
