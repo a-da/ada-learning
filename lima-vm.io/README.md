@@ -4,7 +4,7 @@ Setup K8s environment amd64 on arm64 host.
 
 https://lima-vm.io/docs/usage/
 
-Install Lima
+## Install Lima
 
 ```bash
 git clone https://github.com/lima-vm/lima.git
@@ -13,7 +13,7 @@ make
 make install
 ```
 
-Show vm's
+## Show VM when lima installed
 
 ```bash
 $ ./_output/bin/limactl list
@@ -21,7 +21,7 @@ NAME        STATUS     SSH                VMTYPE    ARCH      CPUS    MEMORY    
 ada-lima    Running    127.0.0.1:33005    qemu      x86_64    2       8GiB      30GiB    ~/.lima/ada-lima
 ```
 
-Stop vm
+## Stop VM when lima installed
 
 ```bash
 $ ./_output/bin/limactl stop ada-lima
@@ -37,7 +37,7 @@ INFO[0000] [hostagent] Sending QMP system_powerdown command
 INFO[0066] [hostagent] QEMU has exited
 ```
 
-Delete vm
+## Delete VM when lima installed
 
 ```bash
 ./_output/bin/limactl delete ada-lima
@@ -48,14 +48,25 @@ INFO[0000] Removing "/home/ubuntu/.lima/ada-lima/ha.sock"
 INFO[0000] Deleted "ada-lima" ("/home/ubuntu/.lima/ada-lima")
 ```
 
-Prepare lima 
+## Prepare lima 
+
+### Install qemu 
 
 ```
 sudo apt-get install qemu-utils
 sudo apt install qemu-system-x86
 ```
 
-Create Lima config
+## user_allow_other
+
+Fix ﻿﻿﻿``Waiting for the essential requirement 4 of 4: "fuse to \"allow_other\" as user"``
+
+```
+sudo vim /etc/fuse.conf # uncomment user_allow_other
+sudo reboot
+```
+
+## Create Lima config
 
 ```bash
 $ ./_output/bin/limactl create --name=ada-lima --arch=x86_64 --cpus=2 --disk=40 --memory=10
@@ -67,7 +78,8 @@ INFO[0002] Using cache "/home/ubuntu/.cache/lima/download/by-url-sha256/7d3048f2
 INFO[0002] Run `limactl start ada-lima` to start the instance.
 ```
 
-Start Lima
+## Start Lima
+
 ```bash
 $ ./_output/bin/limactl start ada-lima
 ? Creating an instance "ada-lima" Proceed with the current configuration
@@ -78,7 +90,8 @@ INFO[0002] Using cache "/home/ubuntu/.cache/lima/download/by-url-sha256/7d3048f2
 INFO[0002] Run `limactl start ada-lima` to start the instance.
 ```
 
-Shell Lima
+## Shell Lima
+
 ```bash
 $ ./_output/bin/limactl shell ada-lima -- bash -c 'date'
 Wed Dec 11 10:46:32 UTC 2024
