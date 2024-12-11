@@ -76,3 +76,11 @@ INFO[0002] Attempting to download the nerdctl archive    arch=x86_64 digest="sha
 INFO[0002] Using cache "/home/ubuntu/.cache/lima/download/by-url-sha256/7d3048f2653a4c1783d2aff89fa2bccca3eb5bfcbdb3fb6dafbb7c7750a78951/data"
 INFO[0002] Run `limactl start ada-lima` to start the instance.
 ```
+
+Shell Lima
+```bash
+$ ./_output/bin/limactl shell ada-lima -- bash -c 'date'
+Wed Dec 11 10:46:32 UTC 2024
+```
+
+
