@@ -40,6 +40,7 @@ INFO[0066] [hostagent] QEMU has exited
 Delete vm
 
 ```bash
+./_output/bin/limactl delete ada-lima
 INFO[0000] The qemu driver process seems already stopped
 INFO[0000] The host agent process seems already stopped
 INFO[0000] Removing *.pid *.sock *.tmp under "/home/ubuntu/.lima/ada-lima"
