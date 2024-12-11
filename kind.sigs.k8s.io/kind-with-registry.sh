@@ -3,8 +3,8 @@
 set -o errexit
 set -u
 
-DOCKER_ENGINE=$1 # docker # podman
-KIND_NAME=$2
+DOCKER_ENGINE=${1:?docker podman nerdctl} # docker # podman
+KIND_NAME=${2:?ada-oraclu-amd}
 
 # 1. Create registry container unless it already exists
 reg_name='kind-registry'
