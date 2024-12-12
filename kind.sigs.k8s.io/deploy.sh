@@ -30,11 +30,19 @@ then
     echo '[INFO] cloud-provider-kind is up'
 else
     echo '[INFO] starting cloud-provider-kind ...'
-    nohup cloud-provider-kind >> cloud-provider-kind.log 2>&1 &
+    mkdir -p $HOME/logs
+    nohup cloud-provider-kind &>> $HOME/logs/cloud-provider-kind.log &
 fi
 
+SERVICE_WITH_IP=service/lb-service-local
 kubectl apply -f examples/loadbalancer_etp_local.yaml
-kubectl get service/lb-service-local
-LB_EXTERNAL_IP=$(kubectl get service/lb-service-local | head -n 2 | tail -n 1 | awk '{ print $4 }')
+kubectl get $SERVICE_WITH_IP
+LB_EXTERNAL_IP=$(kubectl get $SERVICE_WITH_IP | head -n 2 | tail -n 1 | awk '{ print $4 }')
+if [ "$LB_EXTERNAL_IP" = '<pending>' ]
+then
+    echo '[INFO] wait for external IP 60 seconds ...'
+    sleep 60	
+    LB_EXTERNAL_IP=$(kubectl get $SERVICE_WITH_IP | head -n 2 | tail -n 1 | awk '{ print $4 }')
+fi
 curl -v --max-time 60 $LB_EXTERNAL_IP/hostname
 echo
