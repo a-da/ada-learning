@@ -1,6 +1,6 @@
 # Kind
 
-Setup local K8s on MacOS and Ubuntu.
+Setup local K8s on macOS and Ubuntu.
 
 ## Install Dependencies
 
@@ -51,7 +51,7 @@ Delete registry if needed
 docker rm -f kind-registry
 ```
 
-Drop all containters and images if needed
+Drop all containers and images if needed
 
 ```bash
 docker system prune --all --force
