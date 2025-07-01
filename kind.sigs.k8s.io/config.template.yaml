@@ -1,3 +1,4 @@
+---
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 # name: ada-arm
@@ -10,11 +11,18 @@ networking:
   # (127.0.0.1) for security reasons. However, it is possible to change this.
   #apiServerAddress: "127.0.0.1"
   apiServerAddress: "0.0.0.0"
+
   # By default, the API server listens on a random open port.
   # You may choose a specific port but probably don't need to in most cases.
   # Using a random port makes it easier to spin up multiple clusters.
-  apiServerPort: 6443
+  apiServerPort: {apiServerPort}
 nodes:
 - role: control-plane
 - role: worker
+  extraMounts:
+    - hostPath: {hostPath} # Local folder on your machine
+      containerPath: {containerPath} # Path inside the kind node
 - role: worker
+  extraMounts:
+    - hostPath: {hostPath} # Local folder on your machine
+      containerPath: {containerPath} # Path inside the kind node
