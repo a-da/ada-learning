@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 
-function _apple_container {
+function init_apple_container {
   local pkg_url="${1:-https://github.com/apple/container/releases/download/0.2.0/container-0.2.0-installer-signed.pkg}"
   local container_name="${2:-ubuntu}"
   local container_image="${3:-my_ubuntu}"
@@ -48,3 +48,14 @@ function _apple_container {
 
   #container start "${container_name}" || true
 }
+
+case $1:
+
+  start ):
+     /usr/sbin/sshd -D
+    ;;
+ init ):
+    init_apple_container
+    ;;
+   
+esac    
