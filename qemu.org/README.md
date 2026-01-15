@@ -14,3 +14,5 @@ Setup debian environment
 nix-env -if 01.cli.platform-all.new.nix
 - apt install docker.io podman
   sudo usermod -aG docker ada
+
+  
